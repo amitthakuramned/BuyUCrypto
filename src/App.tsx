@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./mainContainer/screens/home";
+import Navbar from "./mainContainer/components/header/header";
+import About from "./mainContainer/screens/trade";
+import Contact from "./mainContainer/screens/contact";
+import { PublicRoutes } from "./mainContainer/routes/appRoutes";
+import NotFound from "./mainContainer/screens/notFoundPage";
+import MainLayout from "./mainContainer/components/mainLayout/mainLayout";
+import '../src/mainContainer/style/appStyle.less'
 
-function App() {
+const App = (props: any) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {/* Main layout */}
+      <MainLayout>
+        <Routes>
+          {/* Public Routes */}
+          {PublicRoutes?.map((route: any) => (
+            <Route path={route.path} element={route.component} />
+          ))}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </MainLayout>
+    </Router>
   );
-}
+};
 
 export default App;
